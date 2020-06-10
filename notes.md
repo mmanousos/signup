@@ -60,12 +60,11 @@ Display success message.
 
 ### Schema
 
-*Users*<br>
-id Int PK<br>
-first_name String<br>
-last_name String<br>
-username String<br>
-email String<br>
-password String (Hashed)<br>
+*Users*  
+id Int PK  
+first_name String  
+last_name String  
+username String  
+email String  
+password String (Hashed)  
 timestamp Datetime
-
