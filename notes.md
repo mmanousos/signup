@@ -29,3 +29,43 @@ If a user clicks on 'correct the information' it will take them back to the home
 CONFIRMATION PAGE (Just a simple confirmation page... nothing fancy).
 
 If you have any questions, please feel free to reach back out.
+
+## Working notes
+
+### Landing / Signup Page
+
+- all fields are required
+- verify email is valid syntax
+- check password and confirmed password are the same before form is submitted
+
+save user information into memory (redux store)
+
+new / edit form are the same
+
+- pass an empty user object to the new form
+- pass populated user object to edit form
+
+### Verification Page
+
+- display password in plaintext so user can verify all details
+- only show password (no need for confirmation field here)
+- **edit** button goes to edit page, populating exisiting details (including password confirmation)
+- **confirm** button sends data to database and moves user forward to confirmation page once their data has been saved successfully
+
+### Confirmation Page
+
+Display success message.
+
+## Database
+
+### Schema
+
+*Users*<br>
+id Int PK<br>
+first_name String<br>
+last_name String<br>
+username String<br>
+email String<br>
+password String (Hashed)<br>
+timestamp Datetime
+
