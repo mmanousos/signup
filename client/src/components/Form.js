@@ -1,7 +1,23 @@
 import React, { Component } from "react";
+import styled from "styled-components";
 import isEmail from "validator/lib/isEmail";
 import FormField from "./FormField";
 
+const StyledForm = styled.form`
+  .userEntry {
+    font-style: italic;
+    font-weight: 300;
+    padding-bottom: 10px;
+    color: blue;
+  }
+  label {
+    font-weight: bold;
+  }
+  input,
+  userEntry {
+    margin-bottom: 10px;
+  }
+`;
 class Form extends Component {
   state = {
     fields: {
@@ -110,8 +126,8 @@ class Form extends Component {
       <div>
         <h2>{this.displayTitle()}</h2>
         {this.displayMsg()}
-        <form onSubmit={this.onformSubmit}>
-          <div>
+        <StyledForm onSubmit={this.onformSubmit}>
+          <div className="field">
             <label htmlFor="firstName">First Name</label>
             {this.state.editing ? (
               <FormField
@@ -204,7 +220,7 @@ class Form extends Component {
           ) : null}
           {this.displayVerifyButton()}
           {this.displayEditAndConfirmButtons()}
-        </form>
+        </StyledForm>
       </div>
     );
   }
