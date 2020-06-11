@@ -75,3 +75,25 @@ timestamp Datetime
 
 - make form labels bold
 - header text changes on each page
+- add styled components?
+
+## TODO
+
+### functionality
+
+- check password maches confirm password field if confirmpassword field is already filled
+
+### design
+
+- color of buttons
+- layout of form: want labels next to fields
+- header update on each page
+
+### database
+
+- install
+
+### testing
+
+- components
+- api
