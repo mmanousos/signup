@@ -1,4 +1,11 @@
 import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  Switch,
+} from "react-router-dom";
 import "./App.css";
 import Form from "./components/Form";
 
@@ -42,18 +49,20 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1>Sign Up</h1>
-          {/* <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a> */}
         </header>
+        <Router>
+          <Switch>
+            <Route
+              render={({ location }) => (
+                <h3>
+                  I'm sorry. You've found a page with no content at{" "}
+                  {location.pathname}
+                </h3>
+              )}
+            />
+          </Switch>
+        </Router>
+
         <p>{this.state.response}</p>
         <Form />
         <p>{this.state.responseToPost}</p>
@@ -65,7 +74,7 @@ class App extends Component {
 export default App;
 
 /* <input
-            type="text"
-            value={this.state.post}
-            onChange={(e) => this.setState({ post: e.target.value })}
-          /> */
+    type="text"
+    value={this.state.post}
+    onChange={(e) => this.setState({ post: e.target.value })}
+  /> */
