@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import isEmail from "validator/lib/isEmail";
+import FormField from "./FormField";
 
 class Form extends Component {
   state = {
@@ -18,11 +19,9 @@ class Form extends Component {
   onformSubmit = (e) => {
     const accounts = [...this.state.accounts]; // remove once db is set up
     const account = this.state.fields;
-    const fieldErrors = this.validate(account);
-    this.setState({ fieldErrors });
     e.preventDefault();
 
-    if (Object.keys(fieldErrors).length) return;
+    if (this.validate()) return;
 
     this.setState({
       accounts: accounts.concat(account), // remove once db is set up
@@ -37,24 +36,31 @@ class Form extends Component {
     });
   };
 
-  onInputChange = (e) => {
+  onInputChange = ({ name, value, error }) => {
     const fields = Object.assign({}, this.state.fields);
-    fields[e.target.name] = e.target.value;
-    this.setState({ fields });
+    const fieldErrors = Object.assign({}, this.state.fieldErrors);
+
+    fields[name] = value;
+    fieldErrors[name] = error;
+
+    this.setState({ fields, fieldErrors });
   };
 
-  validate = (account) => {
-    const errors = {};
-    if (!account.firstName) errors.firstName = "First Name Required";
-    if (!account.lastName) errors.lastName = "Last Name Required";
-    if (!account.username) errors.firstName = "Username Required";
-    if (!account.email) account.email = "Email Required";
-    if (account.email && !isEmail(account.email))
-      errors.email = "Invalid Email";
-    if (!account.password) errors.password = "Password Required";
-    if (account.password !== account.passwordConfirmation)
-      errors.passwordConfirmation = "";
-    return errors;
+  validate = () => {
+    const account = this.state.fields;
+    const fieldErrors = this.state.fieldErrors;
+    const errMessages = Object.keys(fieldErrors).filter((k) => fieldErrors[k]);
+
+    if (!account.firstName) return true;
+    if (!account.lastName) return true;
+    if (!account.username) return true;
+    if (!account.email) return true;
+    if (!account.password) return true;
+    if (!account.passwordConfirmation) return true;
+    if (account.password !== account.passwordConfirmation) return true;
+    if (errMessages.length) return true;
+
+    return false;
   };
 
   render() {
@@ -62,84 +68,88 @@ class Form extends Component {
       <form onSubmit={this.onFormSubmit}>
         <p>
           <label for="firstName">
-            <strong>First Name:</strong>
+            <strong>First Name</strong>
           </label>
-          <input
+          <FormField
             type="text"
             name="firstName"
             placeholder="first name"
             value={this.state.fields.firstName}
             onChange={this.onInputChange}
+            validate={(val) => (val ? false : "First Name Required")}
           />
         </p>
         <p>
           <label for="lastName">
-            <strong>Last Name:</strong>
+            <strong>Last Name</strong>
           </label>
-          <input
+          <FormField
             type="text"
             name="lastName"
             placeholder="last name"
             value={this.state.fields.lastName}
             onChange={this.onInputChange}
+            validate={(val) => (val ? false : "Last Name Required")}
           />
         </p>
         <p>
           <label for="username">
-            <strong>Username:</strong>
+            <strong>Username</strong>
           </label>
-          <input
+          <FormField
             type="text"
             name="username"
             placeholder="username"
             value={this.state.fields.username}
             onChange={this.onInputChange}
+            validate={(val) => (val ? false : "Username Required")}
           />
         </p>
         <p>
           <label for="email">
-            <strong>Email:</strong>
+            <strong>Email</strong>
           </label>
-          <input
+          <FormField
             type="email"
             name="email"
             placeholder="email"
             value={this.state.fields.email}
             onChange={this.onInputChange}
+            validate={(val) => (isEmail(val) ? false : "Invalid Email")}
           />
         </p>
         <p>
           <label for="password">
-            <strong>Password:</strong>
+            <strong>Password</strong>
           </label>
-          <input
+          <FormField
             type="text"
             name="password"
             placeholder="password"
             value={this.state.fields.password}
             onChange={this.onInputChange}
+            validate={(val) => (val ? false : "Password Required")}
           />
         </p>
         <p>
           <label for="passwordConfirmation">
-            <strong>Password Confirmation:</strong>
+            <strong>Password Confirmation</strong>
           </label>
-          <input
+          <FormField
             type="text"
             name="passwordConfirmation"
             placeholder="matching password"
             value={this.state.fields.passwordConfirmation}
+            password={this.state.fields.password}
             onChange={this.onInputChange}
+            validate={(val) => (val ? false : "Confirm Password")}
           />
         </p>
 
-        <input type="submit" />
+        <input type="submit" disabled={this.validate()} />
       </form>
     );
   }
 }
 
 export default Form;
-
-// disabled={this.validate()} // add to submit button
-/* <button type="submit">Submit</button> */
