@@ -75,6 +75,7 @@ timestamp Datetime
 
 - make form labels bold
 - header text changes on each page
+- add styled components?
 
 ## TODO
 

@@ -52,6 +52,10 @@ class App extends Component {
         </header>
         <Router>
           <Switch>
+            <Route path="/" component={Form} />
+            <Route path="/edit" component={Form} />
+            <Route path="/verify" component={Verfiication} />
+            <Route path="/confirm" component={Confirmation} />
             <Route
               render={({ location }) => (
                 <h3>
@@ -64,8 +68,6 @@ class App extends Component {
         </Router>
 
         <p>{this.state.response}</p>
-        <Form />
-        <p>{this.state.responseToPost}</p>
       </div>
     );
   }
@@ -77,4 +79,7 @@ export default App;
     type="text"
     value={this.state.post}
     onChange={(e) => this.setState({ post: e.target.value })}
-  /> */
+  /> 
+  
+  <p>{this.state.responseToPost}</p>
+  */
