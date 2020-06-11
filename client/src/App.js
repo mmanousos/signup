@@ -9,7 +9,7 @@ class App extends Component {
     post: "",
     responseToPost: "",
     account: "",
-    verified: false,
+    confirmed: false,
   };
 
   // componentDidMount() {
@@ -17,21 +17,9 @@ class App extends Component {
   //     .then((res) => this.setState({ response: res.express }))
   //     .catch((err) => console.log(err));
   // }
-  // componentDidMount() {
-  //   this.callApi()
-  //     .then((res) => this.setState({ account: res.express }))
-  //     .catch((err) => console.log(err));
-  // }
 
   // callApi = async () => {
   //   const response = await fetch("/api/hello");
-  //   const body = await response.json();
-  //   if (response.status !== 200) throw Error(body.message);
-
-  //   return body;
-  // };
-  // callApi = async () => {
-  //   const response = await fetch("/verify");
   //   const body = await response.json();
   //   if (response.status !== 200) throw Error(body.message);
 
@@ -52,11 +40,6 @@ class App extends Component {
   //   this.setState({ responseToPost: body });
   // };
 
-  redirectVerify = () => {
-    console.log("I will redirect you now");
-    // redirect to /verify
-  };
-
   render() {
     return (
       <div className="App">
@@ -65,7 +48,20 @@ class App extends Component {
         </header>
         <Router>
           <Switch>
-            <Route exact path="/" component={Form} />
+            <Route
+              exact
+              path="/"
+              render={() =>
+                this.state.confirmed ? (
+                  <div>
+                    <h2>Success!</h2>
+                    <h3>Your account is now active.</h3>
+                  </div>
+                ) : (
+                  <Form />
+                )
+              }
+            />
             <Route
               render={() => (
                 <div>
@@ -91,64 +87,3 @@ export default App;
   
   <p>{this.state.account}</p>
   */
-
-//  <Router>
-//  <Switch>
-//    <Route
-//      exact
-//      path="/"
-//      render={(props) => (
-//        <MainContainer
-//          {...props}
-//          component={"home"}
-//          title={"Enter Your Details"}
-//          redirect={this.redirectVerify}
-//        />
-//      )}
-//    />
-//    <Route
-//      path="/edit"
-//      render={(props) => (
-//        <MainContainer
-//          {...props}
-//          component={"edit"}
-//          title={"Edit Your Details"}
-//        />
-//      )}
-//    />
-//    <Route
-//      path="/verify"
-//      render={(props) => (
-//        <MainContainer
-//          {...props}
-//          component={"verify"}
-//          title={"Verify Details"}
-//          msg={
-//            "Click 'edit' to correct or 'confirm' if they are accurate."
-//          }
-//          // add redirectEdit and redirectSubmit functions / props
-//        />
-//      )}
-//    />
-//    <Route
-//      path="/confirm"
-//      render={(props) => (
-//        <MainContainer
-//          {...props}
-//          component={"confirm"}
-//          title={"Success!"}
-//          msg={"Your account is now active."}
-//        />
-//      )}
-//    />
-
-//    <Route
-//      render={() => (
-//        <div>
-//          <h2>Oh no!</h2>
-//          <h3>I'm sorry. You've found a page with no content.</h3>
-//        </div>
-//      )}
-//    />
-//  </Switch>
-// </Router>

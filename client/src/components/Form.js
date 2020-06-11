@@ -17,6 +17,19 @@ const StyledForm = styled.form`
   userEntry {
     margin-bottom: 10px;
   }
+  button,
+  .confirm {
+    color: white;
+  }
+  .verify {
+    background-color: blue;
+  }
+  .edit {
+    background-color: red;
+  }
+  .confirm {
+    background-color: green;
+  }
 `;
 class Form extends Component {
   state = {
@@ -41,7 +54,11 @@ class Form extends Component {
   displayVerifyButton = () => {
     if (this.state.editing) {
       return (
-        <button disabled={this.validate()} onClick={this.toggleEditing}>
+        <button
+          className="verify"
+          disabled={this.validate()}
+          onClick={this.toggleEditing}
+        >
           Verify
         </button>
       );
@@ -52,8 +69,10 @@ class Form extends Component {
     if (!this.state.editing) {
       return (
         <div>
-          <button onClick={this.toggleEditing}>Edit</button>
-          <input type="submit" value="Confirm" />
+          <button className="edit" onClick={this.toggleEditing}>
+            Edit
+          </button>
+          <input className="confirm" type="submit" value="Confirm" />
         </div>
       );
     }
@@ -75,7 +94,7 @@ class Form extends Component {
       },
       editing: true,
     });
-    // pass account up to FormContainer - then up to App - to send to DB
+    // pass account up to App - to send to DB
   };
 
   onInputChange = ({ name, value, error }) => {
