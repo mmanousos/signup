@@ -44,6 +44,8 @@ new / edit form are the same
 
 - pass an empty user object to the new form
 - pass populated user object to edit form
+- controlled component for form entries
+- use validator npm package to validate email addresses
 
 ### Verification Page
 
@@ -60,7 +62,7 @@ Display success message.
 
 ### Schema
 
-*Users*  
+_Users_  
 id Int PK  
 first_name String  
 last_name String  
@@ -68,3 +70,8 @@ username String
 email String  
 password String (Hashed)  
 timestamp Datetime
+
+## Design
+
+- make form labels bold
+- header text changes on each page
