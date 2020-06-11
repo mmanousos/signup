@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Form from "./components/Form";
+// import Form from "./components/Form";
+// import Verification from "./components/Verification";
+// import Confirmation from "./components/Confirmation";
+import MainContainer from "./components/MainContainer";
 
 class App extends Component {
   state = {
@@ -48,20 +45,62 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>Sign Up</h1>
+          <h1>Create Account</h1>
         </header>
         <Router>
           <Switch>
-            <Route path="/" component={Form} />
-            <Route path="/edit" component={Form} />
-            <Route path="/verify" component={Verfiication} />
-            <Route path="/confirm" component={Confirmation} />
             <Route
-              render={({ location }) => (
-                <h3>
-                  I'm sorry. You've found a page with no content at{" "}
-                  {location.pathname}
-                </h3>
+              exact
+              path="/"
+              render={(props) => (
+                <MainContainer
+                  {...props}
+                  component={"home"}
+                  title={"Enter Your Details"}
+                />
+              )}
+            />
+            <Route
+              path="/edit"
+              render={(props) => (
+                <MainContainer
+                  {...props}
+                  component={"edit"}
+                  title={"Edit Your Details"}
+                />
+              )}
+            />
+            <Route
+              path="/verify"
+              render={(props) => (
+                <MainContainer
+                  {...props}
+                  component={"verify"}
+                  title={"Verify Details"}
+                  msg={
+                    "Click 'edit' to correct or 'confirm' if they are accurate."
+                  }
+                />
+              )}
+            />
+            <Route
+              path="/confirm"
+              render={(props) => (
+                <MainContainer
+                  {...props}
+                  component={"confirm"}
+                  title={"Success!"}
+                  msg={"Your account is now active."}
+                />
+              )}
+            />
+
+            <Route
+              render={() => (
+                <div>
+                  <h2>Oh no!</h2>
+                  <h3>I'm sorry. You've found a page with no content.</h3>
+                </div>
               )}
             />
           </Switch>
@@ -83,3 +122,8 @@ export default App;
   
   <p>{this.state.responseToPost}</p>
   */
+
+// main path title = 'Sign Up'
+// edit path title = 'Edit'
+// verify path title = 'Verify'
+// confirmation path title = 'Success'
