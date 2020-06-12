@@ -5,40 +5,22 @@ import Form from "./components/Form";
 
 class App extends Component {
   state = {
-    response: "",
-    post: "",
-    responseToPost: "",
-    account: "",
+    account: {},
     confirmed: false,
   };
 
-  // componentDidMount() {
-  //   this.callApi()
-  //     .then((res) => this.setState({ response: res.express }))
-  //     .catch((err) => console.log(err));
-  // }
+  handleCreate = async (e) => {
+    e.preventDefault();
+    await fetch("/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ account: this.state.account }),
+    });
 
-  // callApi = async () => {
-  //   const response = await fetch("/api/hello");
-  //   const body = await response.json();
-  //   if (response.status !== 200) throw Error(body.message);
-
-  //   return body;
-  // };
-
-  // handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const response = await fetch("/api/world", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ post: this.state.post }),
-  //   });
-  //   const body = await response.text();
-
-  //   this.setState({ responseToPost: body });
-  // };
+    this.setState({ confirmed: true });
+  };
 
   render() {
     return (
@@ -58,7 +40,7 @@ class App extends Component {
                     <h3>Your account is now active.</h3>
                   </div>
                 ) : (
-                  <Form />
+                  <Form create={this.handleCreate} />
                 )
               }
             />
@@ -78,12 +60,3 @@ class App extends Component {
 }
 
 export default App;
-
-/* <input
-    type="text"
-    value={this.state.post}
-    onChange={(e) => this.setState({ post: e.target.value })}
-  /> 
-  
-  <p>{this.state.account}</p>
-  */

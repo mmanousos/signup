@@ -94,6 +94,8 @@ class Form extends Component {
       },
       editing: true,
     });
+
+    this.props.create(account);
     // pass account up to App - to send to DB
   };
 
