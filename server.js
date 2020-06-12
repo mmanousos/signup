@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
-// const sequelize = require("./client/src/models").default;
+const { sequelize } = require("./client/src/models");
 const { models } = require("./client/src/models");
 
 // postgres defaults
@@ -34,23 +34,11 @@ app.post("/users", (req, res) => {
     req.body.password = hash;
   });
   console.log(req.body); // display request with hashed password
-  // need to save to db return res.send(account)
-  // new User
+
+  // need to save to db
+  // User.create(req.body)
+  // then update redux store
 });
-
-// app.get("/api/hello", (req, res) => {
-//   res.send({ express: "Hello from Express" });
-// });
-// app.get("/", (req, res) => {
-//   res.send({ response: "Hello from Postgres" });
-// });
-
-// app.post("/api/world", (req, res) => {
-//   console.log(req.body);
-//   res.send(
-//     `I received your POST request. This is what you sent me: ${req.body.post}`
-//   );
-// });
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
@@ -60,8 +48,8 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// sequelize.sync().then(() => {
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+sequelize.sync().then(() => {
+  app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
+  });
 });
-// });

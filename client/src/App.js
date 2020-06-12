@@ -9,8 +9,7 @@ class App extends Component {
     confirmed: false,
   };
 
-  handleCreate = async (e) => {
-    e.preventDefault();
+  handleCreate = async () => {
     await fetch("/users", {
       method: "POST",
       headers: {
